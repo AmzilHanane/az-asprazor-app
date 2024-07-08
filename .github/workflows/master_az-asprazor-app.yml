@@ -13,16 +13,19 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
+      - name: List files in the repository
+        run: dir
+
       - name: Set up .NET Core
         uses: actions/setup-dotnet@v1
         with:
           dotnet-version: '6.0.x'
 
       - name: Build with dotnet
-        run: dotnet build ./az-asprazor-app/az-asprazor-app.sln --configuration Release
+        run: dotnet build az-asprazor-app.sln --configuration Release
 
       - name: dotnet publish
-        run: dotnet publish ./az-asprazor-app/az-asprazor-app.sln -c Release -o ${{github.workspace}}/myapp
+        run: dotnet publish az-asprazor-app.sln -c Release -o ${{github.workspace}}/myapp
 
       - name: Upload artifact for deployment job
         uses: actions/upload-artifact@v3
